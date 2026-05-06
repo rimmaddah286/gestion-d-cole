@@ -1,0 +1,8 @@
+<h2>Connexion - Gestion École EMSI</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Se connecter</button>
+</form>
+
+<p>Note : Utilisez les identifiants créés dans l'admin.</p>

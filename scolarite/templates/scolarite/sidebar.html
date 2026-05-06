@@ -1,0 +1,31 @@
+<div style="padding: 15px;">
+    <h3>MENU</h3>
+    
+    <a href="/" style="display: block; margin-bottom: 10px;">🏠 Accueil</a>
+    <hr>
+
+    <!-- On utilise |lower pour comparer sans se soucier des majuscules -->
+    {% if user.profil.role|lower == 'etudiant' %}
+        <p>🎓 <b>Espace Étudiant</b></p>
+        <a href="#" style="display: block; color: black;">Mes Notes</a>
+        <a href="#" style="display: block; color: black;">Mon Emploi du temps</a>
+        <a href="{% url 'mes_absences' %}" style="display: block; color: black;">Mes Absenses</a>
+
+    {% elif user.profil.role|lower == 'prof' %}
+        <p>👨‍🏫 <b>Espace Professeur</b></p>
+        <a href="#" style="display: block; color: black;">Saisir Notes</a>
+        <a href="#" style="display: block; color: black;">Mon Emploi du temps</a>
+
+    {% elif user.is_staff or user.profil.role|lower == 'admin' %}
+    <p>🛡️ <b>Administration</b></p>
+    <a href="/admin/" style="display: block; color: black;">Panel Admin</a>
+    <a href="{% url 'ajouter_absence' %}" style="display: block; color: black;">Saisir une Absence</a>
+
+    {% endif %}
+
+    <hr>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Déconnexion</button>
+    </form>
+</div>

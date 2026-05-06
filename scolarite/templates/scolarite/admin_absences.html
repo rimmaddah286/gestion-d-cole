@@ -1,0 +1,23 @@
+{% extends 'scolarite/base.html' %}
+
+{% block content %}
+<h2>Saisir une Absence</h2>
+<form method="POST">
+    {% csrf_token %}
+    
+    <label>Étudiant :</label>
+    <select name="etudiant" required>
+        {% for e in etudiants %}
+            <option value="{{ e.id }}">{{ e.username }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Matière :</label>
+    <input type="text" name="matiere"  required>
+
+    <label>Séance :</label>
+    <input type="text" name="seance" placeholder="Ex: 08:30 - 10:30" required>
+
+    <button type="submit">Enregistrer l'absence</button>
+</form>
+{% endblock %}
