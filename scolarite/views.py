@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required # Import du décorateu
 from .models import Filiere, Etudiant, Professeur
 from .models import Absence
 from django.contrib.auth.models import User
+from django.shortcuts import render
+from .models import SeanceCours
 
 @login_required
 def page_accueil(request):
@@ -57,3 +59,11 @@ def liste_absences_etudiant(request):
         'absences': absences,
         'count': count
     })
+
+
+
+
+
+def voir_emploi_du_temps(request): # <--- Vérifie bien l'orthographe ici
+    emplois = SeanceCours.objects.all().order_by('heure_debut')
+    return render(request, 'scolarite/planning.html', {'emplois': emplois})

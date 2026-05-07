@@ -49,3 +49,18 @@ class Absence(models.Model):
     seance = models.CharField(max_length=50) # Ex: "08:30 - 10:30"
     matiere = models.CharField(max_length=100)
     justifiee = models.BooleanField(default=False)
+
+
+class SeanceCours(models.Model):
+    JOURS = [
+        ('Lundi', 'Lundi'), ('Mardi', 'Mardi'), ('Mercredi', 'Mercredi'),
+        ('Jeudi', 'Jeudi'), ('Vendredi', 'Vendredi'), ('Samedi', 'Samedi'),
+    ]
+    matiere = models.ForeignKey('Matiere', on_delete=models.CASCADE)
+    jour = models.CharField(max_length=10, choices=JOURS)
+    heure_debut = models.TimeField()
+    heure_fin = models.TimeField()
+    salle = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.matiere.libelle} - {self.jour} ({self.heure_debut})"

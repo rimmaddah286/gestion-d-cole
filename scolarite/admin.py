@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Filiere, Matiere
 from .models import Filiere, Matiere, Etudiant, Professeur
+from django.contrib import admin
+from .models import Filiere, Matiere, Etudiant, Professeur, SeanceCours
 
 @admin.register(Filiere)
 class FiliereAdmin(admin.ModelAdmin):
@@ -23,3 +25,11 @@ class EtudiantAdmin(admin.ModelAdmin):
 @admin.register(Professeur)
 class ProfesseurAdmin(admin.ModelAdmin):
     list_display = ('profil', 'specialite')
+
+
+
+@admin.register(SeanceCours)
+class SeanceCoursAdmin(admin.ModelAdmin):
+    list_display = ('matiere', 'jour', 'heure_debut', 'heure_fin', 'salle')
+    list_filter = ('jour', 'salle', 'matiere__filiere') 
+    search_fields = ('matiere__libelle', 'salle')
